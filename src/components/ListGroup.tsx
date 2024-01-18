@@ -1,16 +1,20 @@
+// ListGroup.tsx
+
 import { useState } from 'react';
 
-function ListGroup() {
-	let items = ['New York', 'San Francisco', 'Tokyo', 'London', 'Paris'];
+interface ListGroupProps {
+	items: string[];
+	heading: string;
+	// (item: string) => void
+	onSelectItem: (item: string) => void;
+}
 
-	// Hook
+function ListGroup({ items, heading, onSelectItem }: ListGroupProps) {
 	const [selectedIndex, setSelectedIndex] = useState(-1);
-	// arr[0] // variable (selectedIndex)
-	// arr[1] // updater function
 
 	return (
 		<>
-			<h1>List</h1>
+			<h1>{heading}</h1>
 			{items.length === 0 && <p>No items found</p>}
 			<ul className="list-group">
 				{items.map((item, index) => (
@@ -23,6 +27,7 @@ function ListGroup() {
 						key={item}
 						onClick={() => {
 							setSelectedIndex(index);
+							onSelectItem(item);
 						}}
 					>
 						{item}
